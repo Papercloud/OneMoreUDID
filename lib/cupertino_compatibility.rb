@@ -1,0 +1,45 @@
+require 'mechanize'
+require 'certified'
+
+module Cupertino
+  module ProvisioningPortal
+    class UnsuccessfulAuthenticationError < RuntimeError; end
+    class UnexpectedContentError < RuntimeError; end
+
+    class Device < Struct.new(:name, :udid)
+      def to_s
+        "#{self.name} #{self.udid}"
+      end
+    end
+
+    class Certificate < Struct.new(:name, :type, :expiration_date, :status, :download_url) #:provisioning_profiles,
+      def to_s
+        "#{self.name}"
+      end
+    end
+
+    class AppID < Struct.new(:bundle_seed_id, :description, :development_properties, :distribution_properties)
+      def to_s
+        "#{self.bundle_seed_id}"
+      end
+    end
+
+    class ProvisioningProfile < Struct.new(:name, :type, :app_id, :status, :download_url, :edit_url)
+      def to_s
+        "#{self.name}"
+      end
+    end
+
+    class PassTypeID < Struct.new(:description, :id, :pass_certificates, :card_id)
+      def to_s
+        "#{self.id} #{self.description}"
+      end
+    end
+
+    class PassCertificate < Struct.new(:name, :status, :expiration_date, :certificate_id)
+      def to_s
+        "#{self.certificate_id}"
+      end
+    end
+  end
+end

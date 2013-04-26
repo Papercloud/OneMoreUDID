@@ -1,0 +1,165 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'commander/import'
+
+require 'OneMoreUDID'
+
+require 'terminal-table'
+require 'term/ansicolor'
+
+require 'cupertino'
+require 'cupertino_compatibility'
+require 'cupertino/provisioning_portal/helpers'
+require 'cupertino/provisioning_portal/agent'
+
+include Cupertino::ProvisioningPortal
+include Cupertino::ProvisioningPortal::Helpers
+
+program :name, 'OneMoreUDID'
+program :version, OneMoreUDID::VERSION
+program :description, '''Uses the developer portal to add one device to a provisioning profile,
+    then downloads and installs the new profile.'''
+
+HighLine.track_eof = false # Fix for built-in Ruby
+
+default_command :omudid
+
+command :omudid do |c|
+  c.syntax = 'omudid [username] [password] [team name] [profile name] [device name] [UDID]'
+  c.summary = ''
+  c.description = ''
+
+  c.action do |args, options|
+
+    if args.count != 6
+      abort 'usage: ' + c.syntax
+    end
+
+    username = args[0]
+    password = args[1]
+    team_name = args[2]
+    profile_name = args[3]
+    device_name = args[4]
+    udid = args[5]
+
+    agent = setup_cupertino(username, password, team_name)
+
+    add_device(agent, device_name, udid)
+
+    update_profile(agent, profile_name)
+
+    filename = download_new_profile(agent, profile_name)
+
+    install_profile(profile_name, filename)
+
+  end
+end
+
+def setup_cupertino(username, password, team_name)
+  agent = Cupertino::ProvisioningPortal::Agent.new
+
+  agent.instance_eval do
+    def team
+      teams = page.form_with(:name => 'saveTeamSelection').radiobuttons
+
+      formatted_teams = {}
+      teams.each do |team|
+        formatted_teams[team.value] = page.search("label[for=\"#{team.dom_id}\"]").first.text.strip
+      end
+
+      @team ||= formatted_teams.index(@teamName)
+    end
+  end
+
+  agent.username = username
+  agent.password = password
+  agent.instance_variable_set(:@teamName, team_name)
+
+  agent
+end
+
+def add_device(agent, device_name, udid)
+  device = Device.new
+  device.name = device_name
+  device.udid = udid
+
+  agent.add_devices(*[device])
+
+  say_ok 'Device ' + device.name + ' (' + device.udid + ') added'
+end
+
+def update_profile(agent, profile_name)
+  profiles = try{agent.list_profiles(:distribution)}
+  profile = (profiles.select { |profile| profile.name == profile_name }).first
+
+  if !profile
+    say_error 'Provisioning profile not found, profiles available:'
+    puts profiles
+    abort
+  end
+
+  agent.manage_devices_for_profile(profile) do |on, off|
+    #enable all devices
+    on + off
+  end
+end
+
+def download_new_profile(agent, profile_name)
+  profiles = try{agent.list_profiles(:distribution)}
+  profile = (profiles.select { |profile| profile.name == profile_name }).first
+
+  if !profile
+    say_error 'New provisioning profile not found, profiles available:'
+    puts profiles
+    abort
+  end
+
+  filename = ''
+  5.times do
+    begin
+      sleep 5
+      if filename = agent.download_profile(profile)
+        say_ok 'Downloaded new profile (' + Dir.pwd + '/' + filename + ')'
+        break
+      else
+        say_error 'Could not download profile'
+      end
+    rescue
+      say_error 'Could not download profile'
+    end
+  end
+
+  if filename == ''
+    abort
+  end
+
+  filename
+end
+
+def install_profile(profile_name, filename)
+
+  Dir.glob(File.expand_path('~') + '/Library/MobileDevice/Provisioning Profiles/*.mobileprovision') do |file|
+
+    delete_file = false
+
+    File.open(file, "r") do |_file|
+      matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match _file.read
+      if matches[1] == profile_name
+        delete_file = true
+      end
+    end
+
+    if delete_file
+      say_warning 'Old profile deleted ('+ file +')'
+      File.delete(file)
+      break
+    end
+
+  end
+
+  new_path = File.expand_path('~') + '/Library/MobileDevice/Provisioning Profiles/' + filename
+  File.rename(Dir.pwd + '/' + filename, new_path)
+
+  say_ok 'New profile installed ('+new_path+')'
+end
