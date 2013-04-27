@@ -69,6 +69,12 @@ def setup_cupertino(username, password, team_name)
       end
 
       @team ||= formatted_teams.index(@teamName)
+
+      unless @team
+        say_error 'Team does not exist. Please use one of the following:'
+        puts formatted_teams.collect { |id, name| name }
+        abort
+      end
     end
   end
 
