@@ -5,14 +5,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'OneMoreUDID'
 
 Gem::Specification.new do |spec|
-  spec.name          = "OneMoreUDID"
+  spec.name          = "omudid"
   spec.version       = OneMoreUDID::VERSION
   spec.authors       = ["David Lawson"]
   spec.email         = ["tech.lawson@gmail.com"]
-  spec.description   = "Description"
-  spec.summary       = "Summary"
-  spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.description   = 'Conveniently add a UDID to the iOS Developer Portal, refresh a provisioning profile and download it. Uploading a new provisioning profile to TestFlight is also supported.'
+  spec.summary       = 'Add one UDID to iOS Dev Portal & TestFlight'
+  spec.homepage      = 'https://github.com/Papercloud/OneMoreUDID'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }

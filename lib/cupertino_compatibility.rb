@@ -10,6 +10,8 @@ include Cupertino::ProvisioningPortal::Helpers
 
 module Cupertino
   module ProvisioningPortal
+    HOST = 'developer.apple.com'
+
     class UnsuccessfulAuthenticationError < RuntimeError; end
     class UnexpectedContentError < RuntimeError; end
 

@@ -1,9 +1,10 @@
 require 'mechanize'
 require 'spinning_cursor'
 require 'rainbow'
+require 'iconv' unless String.method_defined?(:encode)
 
 module OneMoreUDID
-  VERSION = "0.0.1"
+  VERSION = "1.0.3"
 
   class PortalAgent
 
@@ -50,7 +51,7 @@ module OneMoreUDID
       teams.each do |team|
         labels = agent.page.search("label[for=\"#{team.dom_id}\"]")
         formatted_teams[team.value] = labels[0].text.strip
-        formatted_teams[team.value] += ' – ' + labels[1].text.strip if labels[1].text.strip != ''
+        formatted_teams[team.value] += ' - ' + labels[1].text.strip if labels[1].text.strip != ''
       end
 
       formatted_teams
@@ -94,7 +95,7 @@ module OneMoreUDID
           teams.each do |team|
             labels = page.search("label[for=\"#{team.dom_id}\"]")
             formatted_teams[team.value] = labels[0].text.strip
-            formatted_teams[team.value] += ' – ' + labels[1].text.strip if labels[1].text.strip != ''
+            formatted_teams[team.value] += ' - ' + labels[1].text.strip if labels[1].text.strip != ''
           end
 
           if formatted_teams[@teamName]
@@ -205,7 +206,13 @@ module OneMoreUDID
         delete_file = false
 
         File.open(file, "r") do |_file|
-          matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match _file.read
+
+          file_contents = _file.read
+          if String.method_defined?(:encode)
+            file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+          end
+          matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match file_contents
+
           if matches[1] == profile_name
             delete_file = true
           end
@@ -232,7 +239,13 @@ module OneMoreUDID
       Dir.glob(File.expand_path('~') + '/Library/MobileDevice/Provisioning Profiles/*.mobileprovision') do |file|
 
         File.open(file, "r") do |_file|
-          matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match _file.read
+
+          file_contents = _file.read
+          if String.method_defined?(:encode)
+            file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+          end
+
+          matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match file_contents
           profiles << matches[1]
         end
 

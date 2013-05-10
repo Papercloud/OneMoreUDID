@@ -15,7 +15,8 @@ require 'shellwords'
 program :name, 'OneMoreUDID'
 program :version, OneMoreUDID::VERSION
 program :description, '''Uses the developer portal to add one device to a provisioning profile,
-    then downloads and installs the new profile.'''
+    then downloads and installs the new profile.
+    Also uploads provisioning profiles to TestFlight.'''
 
 HighLine.track_eof = false # Fix for built-in Ruby
 

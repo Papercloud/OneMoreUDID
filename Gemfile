@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'cupertino', :git => 'git://github.com/davidlawson/cupertino.git', :branch => 'omudid'
+gem 'cupertino'#, :git => 'git://github.com/davidlawson/cupertino.git', :branch => 'omudid'
 gem 'spinning_cursor'
 gem 'rainbow'
 
