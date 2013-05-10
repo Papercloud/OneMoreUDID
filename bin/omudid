@@ -8,13 +8,9 @@ require 'OneMoreUDID'
 require 'terminal-table'
 require 'term/ansicolor'
 
-require 'cupertino'
 require 'cupertino_compatibility'
-require 'cupertino/provisioning_portal/helpers'
-require 'cupertino/provisioning_portal/agent'
 
-include Cupertino::ProvisioningPortal
-include Cupertino::ProvisioningPortal::Helpers
+require 'shellwords'
 
 program :name, 'OneMoreUDID'
 program :version, OneMoreUDID::VERSION
@@ -23,149 +19,278 @@ program :description, '''Uses the developer portal to add one device to a provis
 
 HighLine.track_eof = false # Fix for built-in Ruby
 
-default_command :omudid
+default_command :help
 
-command :omudid do |c|
-  c.syntax = 'omudid [username] [password] [team name] [profile name] [device name] [UDID]'
-  c.summary = ''
+command :'list-teams' do |c|
+  c.syntax = 'omudid list-teams [username] [password]'
+  c.summary = 'Lists teams on the iOS developer portal'
+  c.description = ''
+
+  c.action do |args, options|
+    username = (args[0] or ask 'Apple Username:')
+    password = (args[1] or pw 'Apple Password:')
+
+    if !args[1]
+      puts
+      say_warning 'Note: you can repeat this process by running:'
+      say_warning '  omudid list-teams ' + Shellwords.escape(username) + ' [password]'
+      puts
+    end
+
+    agent = OneMoreUDID::PortalAgent.new
+
+    teams = agent.get_teams(username, password)
+
+    table = Terminal::Table.new do |t|
+      t << ['Team ID', 'Team Name']
+      t << :separator
+
+      teams.each do |id, name|
+        t << [id, name]
+      end
+
+    end
+
+    puts table
+  end
+end
+
+command :'list-profiles' do |c|
+  c.syntax = 'omudid list-profiles [username] [password] ([team ID])'
+  c.summary = 'Lists provisioning profiles on the iOS developer portal'
   c.description = ''
 
   c.action do |args, options|
 
-    if args.count != 6
-      abort 'usage: ' + c.syntax
+    username = (args[0] or ask 'Apple Username:')
+    password = (args[1] or pw 'Apple Password:')
+    team_name = args[2] rescue ''
+
+    if !args[1]
+      puts
     end
 
-    username = args[0]
-    password = args[1]
-    team_name = args[2]
-    profile_name = args[3]
-    device_name = args[4]
-    udid = args[5]
+    agent = OneMoreUDID::PortalAgent.new
 
-    agent = setup_cupertino(username, password, team_name)
+    agent.setup_cupertino(username, password, team_name)
+    profiles = agent.list_profiles()
 
-    add_device(agent, device_name, udid)
+    if !args[1]
+      puts
+      say_warning 'Note: you can repeat this process by running:'
 
-    update_profile(agent, profile_name)
-
-    filename = download_new_profile(agent, profile_name)
-
-    install_profile(profile_name, filename)
-
-  end
-end
-
-def setup_cupertino(username, password, team_name)
-  agent = Cupertino::ProvisioningPortal::Agent.new
-
-  agent.instance_eval do
-    def team
-      teams = page.form_with(:name => 'saveTeamSelection').radiobuttons
-
-      formatted_teams = {}
-      teams.each do |team|
-        formatted_teams[team.value] = page.search("label[for=\"#{team.dom_id}\"]").first.text.strip
-      end
-
-      @team ||= formatted_teams.index(@teamName)
-
-      unless @team
-        say_error 'Team does not exist. Please use one of the following:'
-        puts formatted_teams.collect { |id, name| name }
-        abort
-      end
-    end
-  end
-
-  agent.username = username
-  agent.password = password
-  agent.instance_variable_set(:@teamName, team_name)
-
-  agent
-end
-
-def add_device(agent, device_name, udid)
-  device = Device.new
-  device.name = device_name
-  device.udid = udid
-
-  agent.add_devices(*[device])
-
-  say_ok 'Device ' + device.name + ' (' + device.udid + ') added'
-end
-
-def update_profile(agent, profile_name)
-  profiles = try{agent.list_profiles(:distribution)}
-  profile = (profiles.select { |profile| profile.name == profile_name }).first
-
-  if !profile
-    say_error 'Provisioning profile not found, profiles available:'
-    puts profiles
-    abort
-  end
-
-  agent.manage_devices_for_profile(profile) do |on, off|
-    #enable all devices
-    on + off
-  end
-end
-
-def download_new_profile(agent, profile_name)
-  profiles = try{agent.list_profiles(:distribution)}
-  profile = (profiles.select { |profile| profile.name == profile_name }).first
-
-  if !profile
-    say_error 'New provisioning profile not found, profiles available:'
-    puts profiles
-    abort
-  end
-
-  filename = ''
-  5.times do
-    begin
-      sleep 5
-      if filename = agent.download_profile(profile)
-        say_ok 'Downloaded new profile (' + Dir.pwd + '/' + filename + ')'
-        break
+      if agent.agent.instance_variable_get('@team')
+        say_warning '  omudid list-profiles ' + Shellwords.escape(username) + ' [password] ' + agent.agent.instance_variable_get('@team')
       else
-        say_error 'Could not download profile'
+        say_warning '  omudid list-profiles ' + Shellwords.escape(username) + ' [password]'
       end
-    rescue
-      say_error 'Could not download profile'
+
+      puts
     end
-  end
 
-  if filename == ''
-    abort
-  end
+    table = Terminal::Table.new do |t|
+      t << ['Name', 'Type', 'App ID', 'Status']
+      t << :separator
 
-  filename
-end
-
-def install_profile(profile_name, filename)
-
-  Dir.glob(File.expand_path('~') + '/Library/MobileDevice/Provisioning Profiles/*.mobileprovision') do |file|
-
-    delete_file = false
-
-    File.open(file, "r") do |_file|
-      matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match _file.read
-      if matches[1] == profile_name
-        delete_file = true
+      profiles.each do |profile|
+        t << [profile.name, profile.type, profile.app_id, profile.status]
       end
     end
 
-    if delete_file
-      say_warning 'Old profile deleted ('+ file +')'
-      File.delete(file)
-      break
+    puts table
+  end
+end
+
+command :add do |c|
+  c.syntax = 'omudid add [username] [password] [profile name] [device name] [UDID] ([team ID])'
+  c.summary = 'Adds a device to the provisioning portal, then downloads and installs the new profile'
+  c.description = ''
+
+  c.action do |args, options|
+
+    username = (args[0] or ask 'Apple Username:')
+    password = (args[1] or pw 'Apple Password:')
+
+    profile_name = (args[2] or ask 'Profile name (leave blank to select from available profiles):')
+    device_name = (args[3] or ask 'Device name:')
+    udid = (args[4] or ask 'UDID:')
+    team_name = args[5] rescue ''
+
+    show_hint = false
+
+    if !args[4]
+      show_hint = true
+      puts
     end
 
+    agent = OneMoreUDID::PortalAgent.new
+    agent.setup_cupertino(username, password, team_name)
+
+    agent.add_device(device_name, udid)
+
+    if profile_name == ''
+      puts
+      profile_name = choose "\nSelect a profile:", *agent.list_profiles().collect { |profile| profile.name }
+      puts
+    end
+
+    if show_hint
+      say_warning 'Note: you can repeat this process by running:'
+
+      if agent.agent.instance_variable_get('@team')
+        say_warning '  omudid add ' + Shellwords.escape(username) + ' [password] ' + Shellwords.escape(profile_name) + ' ' + Shellwords.escape(device_name) + ' ' + Shellwords.escape(udid) + ' ' + agent.agent.instance_variable_get('@team')
+      else
+        say_warning '  omudid add ' + Shellwords.escape(username) + ' [password] ' + Shellwords.escape(profile_name) + ' ' + Shellwords.escape(device_name) + ' ' + Shellwords.escape(udid)
+      end
+
+      puts
+    end
+
+    agent.update_profile(profile_name)
+
+    filename = agent.download_new_profile(profile_name)
+
+    local_agent = OneMoreUDID::LocalAgent.new
+    local_agent.install_profile(profile_name, filename)
   end
-
-  new_path = File.expand_path('~') + '/Library/MobileDevice/Provisioning Profiles/' + filename
-  File.rename(Dir.pwd + '/' + filename, new_path)
-
-  say_ok 'New profile installed ('+new_path+')'
 end
+
+command :'testflight list-apps' do |c|
+  c.syntax = 'omudid testflight list-apps [username] [password]'
+  c.summary = 'Lists apps on TestFlight'
+  c.description = ''
+
+  c.action do |args, options|
+
+    username = (args[0] or ask 'TestFlight Username:')
+    password = (args[1] or pw 'TestFlight Password:')
+
+    if !args[1]
+      puts
+      say_warning 'Note: you can repeat this process by running:'
+      say_warning '  omudid testflight list-apps ' + Shellwords.escape(username) + ' [password]'
+      puts
+    end
+
+    agent = OneMoreUDID::TestFlightAgent.new(username, password)
+    apps = agent.get_apps()
+
+    table = Terminal::Table.new do |t|
+      t << ['App ID', 'App Name']
+      t << :separator
+
+      apps.each do |id, name|
+        t << [id, name]
+      end
+
+    end
+
+    puts table
+  end
+end
+
+command :'testflight list-builds' do |c|
+  c.syntax = 'omudid testflight list-builds [username] [password] [app ID]'
+  c.summary = 'Lists builds of an app on TestFlight'
+  c.description = ''
+
+  c.action do |args, options|
+
+    username = (args[0] or ask 'TestFlight Username:')
+    password = (args[1] or pw 'TestFlight Password:')
+    app_id = (args[2] or ask 'App ID (leave blank to select from available IDs):')
+
+    show_hint = false
+
+    if !args[2]
+      show_hint = true
+    end
+
+    agent = OneMoreUDID::TestFlightAgent.new(username, password)
+
+    if app_id == ''
+      puts
+      choice = choose 'Select an app ID:', *agent.get_apps().collect{ |id, name| id + ' ('+name+')' }
+      puts
+      regex = /^[^ ]*/
+      app_id = (choice.match regex)[0]
+    end
+
+    say_warning 'Note: you can repeat this process by running:'
+    say_warning '  omudid testflight list-builds ' + Shellwords.escape(username) + ' [password] ' + Shellwords.escape(app_id)
+    puts
+
+    builds = agent.get_builds(app_id)
+
+    table = Terminal::Table.new do |t|
+      t << ['Build ID', 'Build Name']
+      t << :separator
+
+      builds.each do |id, name|
+        t << [id, name]
+      end
+
+    end
+
+    puts table
+  end
+end
+
+command :'testflight upload' do |c|
+  c.syntax = 'omudid testflight upload [username] [password] [build ID] [profile name]'
+  c.summary = 'Uploads a provisioning profile to TestFlight'
+  c.description = ''
+
+  c.action do |args, options|
+
+    username = (args[0] or ask 'TestFlight Username:')
+    password = (args[1] or pw 'TestFlight Password:')
+    build_id = (args[2] or ask 'Build ID (leave blank to select from available IDs):')
+    profile_name = (args[3] or ask 'Profile name (leave blank to select from available local profiles):')
+
+    show_hint = false
+
+    if !args[3]
+      show_hint = true
+    end
+
+    agent = OneMoreUDID::TestFlightAgent.new(username, password)
+
+    if build_id == ''
+      app_id = ask 'Enter an App ID to list builds (or leave blank to list App IDs):'
+
+      if app_id == ''
+        puts
+        choice = choose 'Select an app ID:', *agent.get_apps().collect{ |id, name| id + ' ('+name+')' }
+        puts
+        regex = /^[^ ]*/
+        app_id = (choice.match regex)[0]
+      end
+
+      puts
+      choice = choose 'Select a build ID:', *agent.get_builds(app_id).collect{ |id, name| id + ' ('+name+')' }
+      puts
+      regex = /^[^ ]*/
+      build_id = (choice.match regex)[0]
+
+      show_hint = true
+    end
+
+    if profile_name == ''
+      local_agent = OneMoreUDID::LocalAgent.new
+      profile_name = choose 'Select a profile:', *local_agent.get_profiles()
+      puts
+
+      show_hint = true
+    end
+
+    if show_hint
+      say_warning 'Note: you can repeat this process by running:'
+      say_warning '  omudid testflight list-builds ' + Shellwords.escape(username) + ' [password] ' + Shellwords.escape(build_id) + ' ' + Shellwords.escape(profile_name)
+      puts
+    end
+
+    agent.upload(build_id, profile_name)
+  end
+end
+

@@ -24,5 +24,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "cupertino"
 
+  spec.add_dependency "spinning_cursor"
+  spec.add_dependency "rainbow"
+
   spec.add_dependency "commander", "~> 4.1.2"
 end

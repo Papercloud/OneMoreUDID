@@ -1,5 +1,12 @@
+require 'cupertino'
+require 'cupertino/provisioning_portal/helpers'
+require 'cupertino/provisioning_portal/agent'
+
 require 'mechanize'
 require 'certified'
+
+include Cupertino::ProvisioningPortal
+include Cupertino::ProvisioningPortal::Helpers
 
 module Cupertino
   module ProvisioningPortal
