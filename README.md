@@ -7,7 +7,9 @@ Uploading a new provisioning profile to TestFlight is also supported.
 
 Installation
 -
-`$ gem install omudid`
+```
+$ gem install omudid
+```
 
 Usage
 -
