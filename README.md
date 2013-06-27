@@ -5,6 +5,8 @@ Conveniently add a UDID to the iOS Developer Portal, refresh a provisioning prof
 
 Uploading a new provisioning profile to TestFlight is also supported.
 
+[![Build Status](https://travis-ci.org/Papercloud/OneMoreUDID.png)](https://travis-ci.org/Papercloud/OneMoreUDID)
+
 Installation
 -
 ```

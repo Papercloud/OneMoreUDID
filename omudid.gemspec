@@ -2,11 +2,12 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'omudid'
+#require 'rubygems'
+#require 'omudid'
 
 Gem::Specification.new do |spec|
   spec.name          = "omudid"
-  spec.version       = OneMoreUDID::VERSION
+  spec.version       = "1.0.6"
   spec.authors       = ["David Lawson"]
   spec.email         = ["tech.lawson@gmail.com"]
   spec.description   = 'Conveniently add a UDID to the iOS Developer Portal, refresh a provisioning profile and download it. Uploading a new provisioning profile to TestFlight is also supported.'
@@ -24,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock"
 
+  spec.add_dependency "nokogiri", "1.5.9"
   spec.add_dependency "cupertino"
 
   spec.add_dependency "spinning_cursor"
