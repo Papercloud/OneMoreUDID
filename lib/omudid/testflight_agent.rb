@@ -59,14 +59,21 @@ module OneMoreUDID
       upload.file_name = profile_file.path
       form.submit
 
-      say_ok 'Submitted '+profile_file.path
+      say_ok 'Submitted '+profile_file.path+"\n"+'Share link: '+page.link_with(:dom_class => 'bitly').text
     end
 
     def get_profile_file(profile_name)
       Dir.glob(::File.expand_path('~') + '/Library/MobileDevice/Provisioning Profiles/*.mobileprovision') do |file|
 
         ::File.open(file, "r") do |_file|
-          matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match _file.read
+          file_contents = _file.read
+          if String.method_defined?(:encode)
+            #file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+
+            file_contents.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
+            file_contents.encode!('UTF-8', 'UTF-16')
+          end
+          matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match file_contents
           if matches[1] == profile_name
             return _file
           end

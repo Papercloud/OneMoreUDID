@@ -10,7 +10,10 @@ module OneMoreUDID
 
           file_contents = _file.read
           if String.method_defined?(:encode)
-            file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+            #file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+
+            file_contents.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
+            file_contents.encode!('UTF-8', 'UTF-16')
           end
           matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match file_contents
 
@@ -43,7 +46,10 @@ module OneMoreUDID
 
           file_contents = _file.read
           if String.method_defined?(:encode)
-            file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+            #file_contents.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+
+            file_contents.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => '')
+            file_contents.encode!('UTF-8', 'UTF-16')
           end
 
           matches = /<key>Name<\/key>\s+<string>([^<]+)<\/string>/.match file_contents
