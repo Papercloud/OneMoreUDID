@@ -107,4 +107,5 @@ Note: you can repeat this process by running:
 
 Loading page... done
 Submitted ~/Library/MobileDevice/Provisioning Profiles/demo1.mobileprovision
+Share link: http://testflightapp.com/install/XYZ/
 ```
