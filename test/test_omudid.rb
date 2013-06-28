@@ -20,6 +20,7 @@ require 'omudid/portal_agent'
 VCR.configure do |c|
   c.cassette_library_dir = 'test/vcr'
   c.hook_into :webmock # or :fakeweb
+  c.default_cassette_options = { :serialize_with => :syck }
 end
 
 class OneMoreUDIDTest < Test::Unit::TestCase
