@@ -167,8 +167,6 @@ module OneMoreUDID
       device.udid = udid
 
       try {@agent.add_devices(*[device])}
-
-      say_ok 'Device ' + device.name + ' (' + device.udid + ') added'
     end
 
     def list_profiles()

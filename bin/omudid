@@ -132,6 +132,7 @@ command :add do |c|
     agent.setup_cupertino(team_name)
 
     agent.add_device(device_name, udid)
+    say_ok 'Device ' + device.name + ' (' + device.udid + ') added'
 
     if profile_name == ''
       puts
