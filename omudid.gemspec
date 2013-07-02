@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "nokogiri", "1.5.9"
   spec.add_dependency "cupertino"
+  spec.add_dependency "keychain_services"
 
   spec.add_dependency "spinning_cursor"
   spec.add_dependency "rainbow"

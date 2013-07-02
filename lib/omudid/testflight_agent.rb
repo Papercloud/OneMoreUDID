@@ -1,13 +1,52 @@
+require 'keychain'
+
 module OneMoreUDID
   class TestFlightAgent < ::Mechanize
 
     attr_accessor :username, :password
 
-    def initialize(username, password)
-      super()
-      @username = username
-      @password = password
-      self
+    def login(username, password)
+      if username != nil and password != nil
+        self.username, self.password = username, password
+        return
+      end
+
+      accounts = Keychain.generic_password_items.select { |item| item.label == "testflight" }
+      username = password = nil
+      if accounts and accounts.count > 0
+        choice = choose 'Select an account to use:', *accounts.collect{ |account| account.account }.push('New account').push('Delete account')
+        case choice
+          when "New account"
+            puts
+          when "Delete account"
+            puts
+            to_delete = choose 'Select an account to delete:', *accounts.collect{ |account| account.account }.push('ALL')
+            case to_delete
+              when "ALL"
+                accounts.each{ |account| account.delete }
+              else
+                account = Keychain.generic_password_items.find { |item| item.label == "testflight" and item.account == to_delete }.delete
+            end
+            abort
+          else
+            account = Keychain.generic_password_items.find { |item| item.label == "testflight" and item.account == choice }
+            username = account.account
+            password = account.password
+            puts
+        end
+      end
+      if username == nil
+        username = ask 'Testflight Username:'
+        password = pw 'Testflight Password:'
+        puts
+        if agree 'Do you want to save these login details? (yes/no)'
+          Keychain.add_generic_password('testflight', username, password) rescue say_error 'Credentials not saved, email already stored in keychain.'
+        end
+        puts
+      end
+
+      self.username, self.password = username, password
+      return username, password
     end
 
     def get(uri, parameters = [], referer = nil, headers = {})

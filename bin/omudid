@@ -28,19 +28,19 @@ command :'list-teams' do |c|
   c.description = ''
 
   c.action do |args, options|
-    username = (args[0] or ask 'Apple Username:')
-    password = (args[1] or pw 'Apple Password:')
+    agent = OneMoreUDID::PortalAgent.new
+
+    username, password = (args[0] rescue nil), (args[1] rescue nil)
+    username, password = agent.login(username, password)
 
     if !args[1]
       puts
-      say_warning 'Note: you can repeat this process by running:'
+      say_warning 'Note: you can automate this process by running:'
       say_warning '  omudid list-teams ' + Shellwords.escape(username) + ' [password]'
       puts
     end
 
-    agent = OneMoreUDID::PortalAgent.new
-
-    teams = agent.get_teams(username, password)
+    teams = agent.get_teams()
 
     table = Terminal::Table.new do |t|
       t << ['Team ID', 'Team Name']
@@ -62,23 +62,23 @@ command :'list-profiles' do |c|
   c.description = ''
 
   c.action do |args, options|
+    agent = OneMoreUDID::PortalAgent.new
 
-    username = (args[0] or ask 'Apple Username:')
-    password = (args[1] or pw 'Apple Password:')
+    username, password = (args[0] rescue nil), (args[1] rescue nil)
+    username, password = agent.login(username, password)
+
     team_name = args[2] rescue ''
 
     if !args[1]
       puts
     end
 
-    agent = OneMoreUDID::PortalAgent.new
-
-    agent.setup_cupertino(username, password, team_name)
+    agent.setup_cupertino(team_name)
     profiles = agent.list_profiles()
 
     if !args[1]
       puts
-      say_warning 'Note: you can repeat this process by running:'
+      say_warning 'Note: you can automate this process by running:'
 
       if agent.agent.instance_variable_get('@team')
         say_warning '  omudid list-profiles ' + Shellwords.escape(username) + ' [password] ' + agent.agent.instance_variable_get('@team')
@@ -109,13 +109,18 @@ command :add do |c|
 
   c.action do |args, options|
 
-    username = (args[0] or ask 'Apple Username:')
-    password = (args[1] or pw 'Apple Password:')
+    agent = OneMoreUDID::PortalAgent.new
+    username, password = (args[0] rescue nil), (args[1] rescue nil)
+    username, password = agent.login(username, password)
 
-    profile_name = (args[2] or ask 'Profile name (leave blank to select from available profiles):')
+    profile_name = (args[2] or (puts; ask 'Profile name (leave blank to select from available profiles):'))
     device_name = (args[3] or ask 'Device name:')
     udid = (args[4] or ask 'UDID:')
     team_name = args[5] rescue ''
+
+    if udid.match(/^[A-f0-9]{40}$/).nil?
+      say_error 'Invalid UDID entered, won\'t be inserted.'
+    end
 
     show_hint = false
 
@@ -124,8 +129,7 @@ command :add do |c|
       puts
     end
 
-    agent = OneMoreUDID::PortalAgent.new
-    agent.setup_cupertino(username, password, team_name)
+    agent.setup_cupertino(team_name)
 
     agent.add_device(device_name, udid)
 
@@ -136,7 +140,7 @@ command :add do |c|
     end
 
     if show_hint
-      say_warning 'Note: you can repeat this process by running:'
+      say_warning 'Note: you can automate this process by running:'
 
       if agent.agent.instance_variable_get('@team')
         say_warning '  omudid add ' + Shellwords.escape(username) + ' [password] ' + Shellwords.escape(profile_name) + ' ' + Shellwords.escape(device_name) + ' ' + Shellwords.escape(udid) + ' ' + agent.agent.instance_variable_get('@team')
@@ -163,17 +167,17 @@ command :'testflight list-apps' do |c|
 
   c.action do |args, options|
 
-    username = (args[0] or ask 'TestFlight Username:')
-    password = (args[1] or pw 'TestFlight Password:')
+    agent = OneMoreUDID::TestFlightAgent.new
+
+    username, password = (args[0] rescue nil), (args[1] rescue nil)
+    username, password = agent.login(username, password)
 
     if !args[1]
-      puts
-      say_warning 'Note: you can repeat this process by running:'
+      say_warning 'Note: you can automate this process by running:'
       say_warning '  omudid testflight list-apps ' + Shellwords.escape(username) + ' [password]'
       puts
     end
 
-    agent = OneMoreUDID::TestFlightAgent.new(username, password)
     apps = agent.get_apps()
 
     table = Terminal::Table.new do |t|
@@ -197,8 +201,10 @@ command :'testflight list-builds' do |c|
 
   c.action do |args, options|
 
-    username = (args[0] or ask 'TestFlight Username:')
-    password = (args[1] or pw 'TestFlight Password:')
+    agent = OneMoreUDID::TestFlightAgent.new
+    username, password = (args[0] rescue nil), (args[1] rescue nil)
+    username, password = agent.login(username, password)
+
     app_id = (args[2] or ask 'App ID (leave blank to select from available IDs):')
 
     show_hint = false
@@ -207,17 +213,16 @@ command :'testflight list-builds' do |c|
       show_hint = true
     end
 
-    agent = OneMoreUDID::TestFlightAgent.new(username, password)
-
     if app_id == ''
+      apps = agent.get_apps().collect{ |id, name| id + ' ('+name+')' }
       puts
-      choice = choose 'Select an app ID:', *agent.get_apps().collect{ |id, name| id + ' ('+name+')' }
+      choice = choose 'Select an app ID:', *apps
       puts
       regex = /^[^ ]*/
       app_id = (choice.match regex)[0]
     end
 
-    say_warning 'Note: you can repeat this process by running:'
+    say_warning 'Note: you can automate this process by running:'
     say_warning '  omudid testflight list-builds ' + Shellwords.escape(username) + ' [password] ' + Shellwords.escape(app_id)
     puts
 
@@ -244,8 +249,10 @@ command :'testflight upload' do |c|
 
   c.action do |args, options|
 
-    username = (args[0] or ask 'TestFlight Username:')
-    password = (args[1] or pw 'TestFlight Password:')
+    agent = OneMoreUDID::TestFlightAgent.new
+    username, password = (args[0] rescue nil), (args[1] rescue nil)
+    username, password = agent.login(username, password)
+
     build_id = (args[2] or ask 'Build ID (leave blank to select from available IDs):')
     profile_name = (args[3] or ask 'Profile name (leave blank to select from available local profiles):')
 
@@ -255,21 +262,21 @@ command :'testflight upload' do |c|
       show_hint = true
     end
 
-    agent = OneMoreUDID::TestFlightAgent.new(username, password)
-
     if build_id == ''
       app_id = ask 'Enter an App ID to list builds (or leave blank to list App IDs):'
 
       if app_id == ''
+        apps = agent.get_apps().collect{ |id, name| id + ' ('+name+')' }
         puts
-        choice = choose 'Select an app ID:', *agent.get_apps().collect{ |id, name| id + ' ('+name+')' }
+        choice = choose 'Select an app ID:', *apps
         puts
         regex = /^[^ ]*/
         app_id = (choice.match regex)[0]
       end
 
+      builds = agent.get_builds(app_id).collect{ |id, name| id + ' ('+name+')' }
       puts
-      choice = choose 'Select a build ID:', *agent.get_builds(app_id).collect{ |id, name| id + ' ('+name+')' }
+      choice = choose 'Select a build ID:', *builds
       puts
       regex = /^[^ ]*/
       build_id = (choice.match regex)[0]
@@ -286,7 +293,7 @@ command :'testflight upload' do |c|
     end
 
     if show_hint
-      say_warning 'Note: you can repeat this process by running:'
+      say_warning 'Note: you can automate this process by running:'
       say_warning '  omudid testflight list-builds ' + Shellwords.escape(username) + ' [password] ' + Shellwords.escape(build_id) + ' ' + Shellwords.escape(profile_name)
       puts
     end

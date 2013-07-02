@@ -1,9 +1,54 @@
+require 'keychain'
+
 module OneMoreUDID
   class PortalAgent
 
     attr_accessor :agent
+    attr_accessor :username, :password
 
-    def get_teams(username, password)
+    def login(username, password)
+      if username != nil and password != nil
+        self.username, self.password = username, password
+        return
+      end
+
+      accounts = Keychain.generic_password_items.select { |item| item.label == "omudid" }
+      username = password = nil
+      if accounts and accounts.count > 0
+        choice = choose 'Select an account to use:', *accounts.collect{ |account| account.account }.push('New account').push('Delete account')
+        case choice
+          when "New account"
+            puts
+          when "Delete account"
+            puts
+            to_delete = choose 'Select an account to delete:', *accounts.collect{ |account| account.account }.push('ALL')
+            case to_delete
+              when "ALL"
+                accounts.each{ |account| account.delete }
+              else
+                account = Keychain.generic_password_items.find { |item| item.label == "omudid" and item.account == to_delete }.delete
+            end
+            abort
+          else
+            account = Keychain.generic_password_items.find { |item| item.label == "omudid" and item.account == choice }
+            username = account.account
+            password = account.password
+        end
+      end
+      if username == nil
+        username = ask 'Apple Username:'
+        password = pw 'Apple Password:'
+        puts
+        if agree 'Do you want to save these login details? (yes/no)'
+          Keychain.add_generic_password('omudid', username, password) rescue say_error 'Credentials not saved, email already stored in keychain.'
+        end
+      end
+
+      self.username, self.password = username, password
+      return username, password
+    end
+
+    def get_teams
       agent = Cupertino::ProvisioningPortal::Agent.new
 
       agent.instance_eval do
@@ -33,8 +78,8 @@ module OneMoreUDID
         end
       end
 
-      agent.username = username
-      agent.password = password
+      agent.username = self.username
+      agent.password = self.password
 
       agent.get('https://developer.apple.com/account/selectTeam.action')
 
@@ -50,7 +95,7 @@ module OneMoreUDID
       formatted_teams
     end
 
-    def setup_cupertino(username, password, team_name = '')
+    def setup_cupertino(team_name = '')
       agent = Cupertino::ProvisioningPortal::Agent.new
 
       agent.instance_eval do
@@ -107,8 +152,8 @@ module OneMoreUDID
         end
       end
 
-      agent.username = username
-      agent.password = password
+      agent.username = self.username
+      agent.password = self.password
       agent.instance_variable_set(:@teamName, team_name)
 
       @agent = agent
