@@ -27,7 +27,8 @@ class OneMoreUDIDTest < Test::Unit::TestCase
   def test_teams
     VCR.use_cassette('teams') do
       agent = OneMoreUDID::PortalAgent.new
-      teams = agent.get_teams('test@email.com', 'password')
+      agent.login('test@email.com', 'password')
+      teams = agent.get_teams()
 
       assert teams.count == 2
       assert teams['XYZ1'] == 'Team 1'
