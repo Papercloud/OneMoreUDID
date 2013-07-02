@@ -1,0 +1,682 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: https://developer.apple.com/account/selectTeam.action
+    body: 
+      string: ""
+    headers: 
+      host: 
+      - developer.apple.com
+      accept-language: 
+      - en-us,en;q=0.5
+      connection: 
+      - keep-alive
+      user-agent: 
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22
+      accept: 
+      - "*/*"
+      accept-charset: 
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      keep-alive: 
+      - 300
+      accept-encoding: 
+      - gzip,deflate,identity
+  response: 
+    status: 
+      code: 302
+      message: Moved Temporarily
+    headers: 
+      last-modified: 
+      - Tue, 02 Jul 2013 09:35:33 GMT
+      cache-control: 
+      - post-check=0, pre-check=0
+      connection: 
+      - Keep-Alive
+      location: 
+      - https://daw.apple.com/cgi-bin/WebObjects/DSAuthWeb.woa/wa/login?appIdKey=d4f7d769c2abecc664d0dadfed6a67f943442b5e9c87524d4587a95773750cea&path=%2F%2Faccount%2FselectTeam.action
+      expires: 
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      x-frame-options: 
+      - SAMEORIGIN
+      - SAMEORIGIN
+      server: 
+      - Apache
+      ms-author-via: 
+      - DAV
+      pragma: 
+      - no-cache
+      set-cookie: 
+      - NSC_MCWT_efwfmpqfs_443_BqbdifKbwb=ffffffff12f61da845525d5f4f58455e445a4a4232aa;Version=1;path=/;secure;httponly
+      keep-alive: 
+      - timeout=15, max=474
+      content-length: 
+      - "0"
+      date: 
+      - Tue, 02 Jul 2013 09:35:33 GMT
+      content-type: 
+      - text/plain
+    body: 
+      string: ""
+    http_version: "1.1"
+  recorded_at: Tue, 02 Jul 2013 09:35:34 GMT
+- request: 
+    method: get
+    uri: https://daw.apple.com/cgi-bin/WebObjects/DSAuthWeb.woa/wa/login?appIdKey=d4f7d769c2abecc664d0dadfed6a67f943442b5e9c87524d4587a95773750cea&path=%2F%2Faccount%2FselectTeam.action
+    body: 
+      string: ""
+    headers: 
+      host: 
+      - daw.apple.com
+      accept-language: 
+      - en-us,en;q=0.5
+      connection: 
+      - keep-alive
+      user-agent: 
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22
+      accept: 
+      - "*/*"
+      accept-charset: 
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      keep-alive: 
+      - 300
+      accept-encoding: 
+      - gzip,deflate,identity
+  response: 
+    status: 
+      code: 200
+      message: Apple
+    headers: 
+      cache-control: 
+      - private
+      - no-cache
+      - no-store
+      - must-revalidate
+      - max-age=0
+      expires: 
+      - Wed, 05-Jun-2013 19:16:34 GMT
+      server: 
+      - Apache
+      pragma: 
+      - no-cache
+      content-length: 
+      - "8171"
+      date: 
+      - Tue, 02 Jul 2013 09:35:36 GMT
+      content-type: 
+      - text/html; charset=iso-8859-1
+      cneonction: 
+      - close
+    body: 
+      string: "<!DOCTYPE html>\n\
+        <html lang=\"en-us\">\n\
+        <head>\n\
+        \t<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n\
+        \t<meta name=\"Author\" content=\"Apple Inc.\" />\n\
+        \t<meta name=\"viewport\" content=\"width=1024\" />\n\
+        \t<link rel=\"shortcut icon\" href=\"https://devimages.apple.com.edgekey.net/favicon.ico\" />\n\
+        \t<link rel=\"icon\" href=\"https://devimages.apple.com.edgekey.net/favicon.ico\" />\n\
+        \t<link rel=\"stylesheet\" href=\"https://devimages.apple.com.edgekey.net/assets/core/styles/base.css\" type=\"text/css\" />\n\
+        \t<link rel=\"stylesheet\" href=\"https://devimages.apple.com.edgekey.net/assets/core/styles/adc.css\" type=\"text/css\" />\n\
+        \t<script src=\"https://devimages.apple.com.edgekey.net/assets/core/scripts/lib/prototype.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+        \t<script src=\"https://devimages.apple.com.edgekey.net/assets/core/scripts/lib/scriptaculous.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+        \t<script src=\"https://devimages.apple.com.edgekey.net/assets/core/scripts/browserdetect.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+        \t<script src=\"https://devimages.apple.com.edgekey.net/assets/core/scripts/apple_core.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+        \t<script src=\"https://devimages.apple.com.edgekey.net/assets/core/scripts/search_decorator.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+        \t<script src=\"https://devimages.apple.com.edgekey.net/assets/core/scripts/adc_core.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+        \t<script src=\"https://devimages.apple.com.edgekey.net/assets/scripts/ac_retina.js\" type=\"text/javascript\" charset=\"utf-8\"></script>\n\
+        \t<script type=\"text/javascript\">\n\
+        \t\tdocument.write('<link rel=\"stylesheet\" type=\"text/css\" href=\"https://devimages.apple.com.edgekey.net/assets/styles/script.css\" media=\"screen\">');\n\
+        \t</script>\t\n\
+        \t\n\
+        \t<title>Sign in with your Apple ID - Apple Developer</title>\n\
+        \t<link rel=\"stylesheet\" href=\"https://devimages.apple.com.edgekey.net/assets/styles/linen.css\" type=\"text/css\" />\n\
+        \t<link rel=\"stylesheet\" href=\"https://devimages.apple.com.edgekey.net/login/styles/linen.css\" type=\"text/css\" />\n\
+        \t<script>\n\
+        \tEvent.onDOMReady(function() {\n\
+        \t\t// password expired page\n\
+        \t\tif ($$('span.dsheading').length > 0) {\n\
+        \t\t\t$$('#ds_container .dslabel label').each(function(el) { el.innerHTML += ':'; });\n\
+        \t\t\tif ($$('span.dserror').length > 0) {\n\
+        \t\t\t\t$$('span.dserror').each(function(el) {\n\
+        \t\t\t\t\tel.innerHTML = el.innerHTML.gsub('AppleID', 'Apple ID');\n\
+        \t\t\t\t});\n\
+        \t\t\t\t$$('img').each(function(img) {\n\
+        \t\t\t\t\timg.hide();\n\
+        \t\t\t\t});\n\
+        \t\t\t}\n\
+        \t\t\t$('content').show();\n\
+        \t\t\tif($$('span.dsheading')[0].innerHTML == \"Sign In Successful\") {\n\
+        \t\t\t\t// update secret info page\n\
+        \t\t\t\t$$('body.login')[0].addClassName('update-info');\n\
+        \t\t\t\t$$('input').each(function(el) {\n\
+        \t\t\t\t\tel.observe('keyup', function(e) {\n\
+        \t\t\t\t\t\tif(e.keyCode == Event.KEY_RETURN) {\n\
+        \t\t\t\t\t\t\tdocument.harvestForm.submit();\n\
+        \t\t\t\t\t\t\te.stop();\n\
+        \t\t\t\t\t\t}\n\
+        \t\t\t\t\t});\n\
+        \t\t\t\t});\n\
+        \t\t\t} else {\n\
+        \t\t\t\t// regular password expired pages\n\
+        \t\t\t\t$$('body.login')[0].addClassName('password-expired');\n\
+        \t\t\t\t$$('input').each(function(el) {\n\
+        \t\t\t\t\tel.observe('keyup', function(e) {\n\
+        \t\t\t\t\t\tif(e.keyCode == Event.KEY_RETURN) {\n\
+        \t\t\t\t\t\t\tdocument.appleConnectExpiredPasswordForm.submit();\n\
+        \t\t\t\t\t\t\te.stop();\n\
+        \t\t\t\t\t\t}\n\
+        \t\t\t\t\t});\n\
+        \t\t\t\t});\n\
+        \t\t\t}\n\
+        \t\t}\n\
+        \t\t// wrong password page\n\
+        \t\telse if ($$('span.dserror').length > 0) {\n\
+        \t\t\t$$('body.login')[0].addClassName('password-wrong');\n\
+        \t\t\t$$('#ds_container .dslabel').each(function(el) { el.innerHTML += ':'; });\n\
+        \t\t\t$('content').show();\n\
+        \t\t\tdocument.appleConnectForm.theAccountPW.focus();\n\
+        \t\t}\n\
+        \t\t// basic login page\n\
+        \t\telse {\n\
+        \t\t\t$$('#ds_container .dslabel').each(function(el) { el.innerHTML += ':'; });\n\
+        \t\t\t$$('#ds_container tr')[1].hide();\n\
+        \t\t\t$('content').show();\n\
+        \t\t}\n\
+        \t});\n\
+        \t</script>\n\
+        </head>\n\
+        <body class=\"login\" onload=\"dsfocus()\">\n\
+        \t<div class=\"content-wrapper\">\n\n\
+        \t\t<div id=\"globalheader\" data-hires=\"true\">\n\
+        \t\t\t<h1><a href=\"https://developer.apple.com/\">Apple Developer</a></h1>\n\
+        \t\t</div>\n\n\
+        \t\t<div id=\"content\" class=\"content\" style=\"display:none;\">\n\n\
+        \t\t\t<header class=\"hero\">\n\
+        \t\t\t\t<hgroup>\n\
+        \t\t\t\t\t<h1>Sign in with your Apple ID</h1>\n\
+        \t\t\t\t\t<p class=\"intro\">Use the Apple ID you used to register or register now.</p>\n\
+        \t\t\t\t</hgroup>\n\
+        \t\t\t</header>\n\n\
+        \t\t\t\t\n\
+        \t\n\
+        \t\n\
+        \t\t\n\
+        \t\t\t<script>\n\
+        \tfunction dsfocus(){ document.appleConnectForm.theAccountName.focus(); }\n\
+        </script>\n\n\n\
+        \t\n\
+        \t\t<div id=\"ds_container\">\n\
+        \t\n\
+        \t\n\n\n\n\n\
+        \t\n\
+        \t\t\n\
+        \t\t\t<form method=\"post\" name=\"appleConnectForm\" action=\"/cgi-bin/WebObjects/DSAuthWeb.woa/820/wo/vax9BSRpPbEplGphL3lZcg/0.1.3.1.1.2.1.1.3.1.1\">\n\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\n\
+        \t\t\t\t\t<table cellpadding=0 cellspacing=0 border=0 width=273>\n\
+        \t\t\t\t\t\t<tr valign=top>\n\
+        \t\t\t\t\t\t\t<td align=left><font size=2><font face=\"Geneva, Verdana, Arial, Helvetica, sans-serif\" size=1 class=\"G10\" />\n\
+        \t\t\t\t\t\t\t\t<label for=\"accountname\"><span class=\"dslabel\">Apple ID</span></label>\n\
+        \t\t\t\t\t\t\t\t<font color=\"#ff1102\"></font></font /><br>\n\
+        \t\t\t\t\t\t\t\t<font size='2'><input size=\"30\" autocapitalize=\"off\" autocorrect=\"off\" maxlength=\"128\" id=\"accountname\" type=\"text\" name=\"theAccountName\" /></font></font>\n\
+        \t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t</td>\n\
+        \t\t\t\t\t\t</tr>\n\
+        \t\t\t\t\t\t\n\
+        \t\t\t\t\t\t<tr><td><img alt=\"\" width=\"273\" height=\"5\" src=\"/AppleConnect/US-EN/spacer.gif\" /></td></tr>\n\
+        \t\t\t\t\t\t<tr><td><img alt=\"\" width=\"273\" height=\"5\" src=\"/AppleConnect/US-EN/spacer.gif\" /></td></tr>\n\
+        \t\t\t\t\t\t<tr>\n\
+        \t\t\t\t\t\t\t<td align='left'>\n\
+        \t\t\t\t\t\t\t\t<font face=\"Geneva, Verdana, Arial, Helvetica, sans-serif\" size=1 class=\"G10\" />\n\
+        \t\t\t\t\t\t\t\t\t<label for=\"accountpassword\"><span class=\"dslabel\">Password</span></label>\n\
+        \t\t\t\t\t\t\t\t</font />\n\
+        \t\t\t\t\t\t\t\t<br>\n\
+        \t\t\t\t\t\t\t\t<input size=\"30\" autocapitalize=\"off\" oncut=\"return false ;\" oncopy=\"return false ;\" autocorrect=\"off\" maxlength=\"32\" id=\"accountpassword\" type=\"password\" name=\"theAccountPW\" /><input border=\"0\" width=\"0\" height=\"0\" type=\"image\" name=\"1.Continue\" src=\"/AppleConnect/US-EN/spacer.gif\" />\n\
+        \t\t\t\t\t\t\t</td>\n\
+        \t\t\t\t\t\t</tr>\n\
+        \t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\n\
+        \t\t\t\t\t\t<tr><td><img alt=\"\" width=\"273\" height=\"5\" src=\"/AppleConnect/US-EN/spacer.gif\" /></td></tr>\n\
+        \t\t\t\t\t\t<tr><td><img alt=\"\" width=\"273\" height=\"5\" src=\"/AppleConnect/US-EN/spacer.gif\" /></td></tr>\n\
+        \t\t\t\t\t\t\n\
+        \t\t\t\t\t\t<tr>\n\
+        \t\t\t\t\t\t\t<td>\n\
+        \t\t\t\t\t\t\t\t<table cellspacing='0' border='0' width='273' cellpadding='0'>\n\
+        \t\t\t\t\t\t\t\t\t<tr align='left'>\n\
+        \t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t<td align='left' width='170'>\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\n\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t<font size='1'>\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"dstext\">\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- Show Forgot Password Button as button -->\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<input border=\"0\" alt=\"Did you forget your password?\" type=\"image\" name=\"1.Forgot\" src=\"/AppleConnect/US-EN/adc09_forgot_password.png\" />\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t\t</span>\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\t</font>\n\
+        \t\t\t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t</td>\n\
+        \t\t\t\t\t\t\t\t\t\t\t<td width='15'><img alt=\"\" width=\"15\" height=\"5\" src=\"/AppleConnect/US-EN/spacer.gif\" /></td>\n\
+        \t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\t<td align='left' width='88'><input border=\"0\" alt=\"Sign In\" type=\"image\" name=\"1.Continue\" src=\"/AppleConnect/US-EN/adc09_signin.png\" /></td>\n\
+        \t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t\t\n\
+        \t\t\t\t\t\t\t\t\t</tr>\n\
+        \t\t\t\t\t\t\t\t</table>\n\
+        \t\t\t\t\t\t\t</td>\n\
+        \t\t\t\t\t\t</tr>\n\
+        \t\t\t\t\t</table>\n\
+        \t\t\t\t\t<input type=\"hidden\" name=\"theAuxValue\" />\n\
+        \t\t\t\t\n\
+        \t\t\t<input type=\"hidden\" name=\"wosid\" value=\"vax9BSRpPbEplGphL3lZcg\" /></form>\n\
+        \t\t\n\n\
+        \t\t\n\
+        \t\t\n\
+        \t\t\n\
+        \t\t\n\
+        \t\t\t\n\
+        </div>\n\n\
+        \t\n\
+        \t\n\
+        \t\n\
+        \t\n\
+        \t\n\n\n\n\n\
+        \t\t\n\
+        \t\t\n\
+        \t\n\
+        \t\t\t\n\n\
+        \t\t\t<a class=\"button large blue password-update\" onclick=\"document.appleConnectExpiredPasswordForm.submit(); return false;\"><span>Update</span></a>\n\
+        \t\t\t<a class=\"button large register-button\" href=\"https://developer.apple.com/programs/register/\"><span>Register</span></a>\n\
+        \t\t\t<a class=\"button large blue signin-button\" onclick=\"document.appleConnectForm.submit(); return false;\"><span>Sign In</span></a>\n\
+        \t\t\t<div class=\"divider\"></div>\n\
+        \t\t\t<a class=\"forgot-button\" href=\"https://iforgot.apple.com/\">Forgot ID or Password?</a>\n\
+        \t\t\t\t\t\n\
+        \t\t</div><!-- /content -->\n\n\
+        \t\t<div class=\"content-spacer\"></div>\n\n\
+        \t\t<div id=\"globalfooter\">\n\
+        \t\t\t<div class=\"gf-sosumi\">\n\
+        \t\t\t\t<p>Copyright \xA9 2013 Apple Inc. All rights reserved.</p>\n\
+        \t\t\t\t<ul class=\"piped\">\n\
+        \t\t\t\t\t<li><a href=\"http://www.apple.com/legal/terms/site.html\" class=\"first\">Terms of Use</a></li>\n\
+        \t\t\t\t\t<li><a href=\"http://www.apple.com/privacy/\">Privacy Policy</a></li>\n\
+        \t\t\t\t</ul>\n\
+        \t\t\t</div>\n\
+        \t\t</div><!--/globalfooter-->\n\
+        \t</div>\n\
+        </body>\n\
+        </html>"
+    http_version: "1.1"
+  recorded_at: Tue, 02 Jul 2013 09:35:37 GMT
+- request: 
+    method: post
+    uri: https://daw.apple.com/cgi-bin/WebObjects/DSAuthWeb.woa/820/wo/vax9BSRpPbEplGphL3lZcg/0.1.3.1.1.2.1.1.3.1.1
+    body: 
+      string: theAccountName=test%40email.com&theAccountPW=password&theAuxValue=&wosid=vax9BSRpPbEplGphL3lZcg
+    headers: 
+      host: 
+      - daw.apple.com
+      accept-language: 
+      - en-us,en;q=0.5
+      connection: 
+      - keep-alive
+      user-agent: 
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22
+      accept: 
+      - "*/*"
+      referer: 
+      - !ruby/object:URI::HTTPS 
+        fragment: 
+        host: daw.apple.com
+        opaque: 
+        password: 
+        path: /cgi-bin/WebObjects/DSAuthWeb.woa/wa/login
+        port: 443
+        query: appIdKey=d4f7d769c2abecc664d0dadfed6a67f943442b5e9c87524d4587a95773750cea&path=%2F%2Faccount%2FselectTeam.action
+        registry: 
+        scheme: https
+        user: 
+      accept-charset: 
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      keep-alive: 
+      - 300
+      content-length: 
+      - "108"
+      accept-encoding: 
+      - gzip,deflate,identity
+      content-type: 
+      - application/x-www-form-urlencoded
+  response: 
+    status: 
+      code: 200
+      message: Apple
+    headers: 
+      cache-control: 
+      - private
+      - no-cache
+      - no-store
+      - must-revalidate
+      - max-age=0
+      expires: 
+      - Wed, 05-Jun-2013 19:16:34 GMT
+      server: 
+      - Apache
+      pragma: 
+      - no-cache
+      set-cookie: 
+      - ds01_p_c_1001=thisCookieIsToBeRemovedAtTheNextResponse; version="1"; max-age=0; expires=Thu, 01-Jan-1970 00:00:00 GMT; path=/; domain=.apple.com
+      - ds01=thisCookieIsToBeRemovedAtTheNextResponse; version="1"; max-age=0; expires=Thu, 01-Jan-1970 00:00:00 GMT; path=/; domain=.apple.com
+      - DefaultAppleID=thisCookieIsToBeRemovedAtTheNextResponse; version="1"; max-age=0; expires=Thu, 01-Jan-1970 00:00:00 GMT; path=/; domain=.apple.com
+      - ds01_a=076e5a5a37eda7805f203ace175cdf601ef35bbedaa31f14a1a32c09526b97a75568eba48135dd4aef48ecfc1d7387e4729209ad7605fb601e488206df27d72ebd9d2fae6127373a899607444c7f78dcf987a7d99f2c3a0e893d8406776cd536GZVX; version="1"; expires=Wed, 02-Jul-2014 09:35:38 GMT; path=/; domain=.apple.com
+      - myacinfoName=BA710667A884C9ECD61188E9CE70F5F1C5BE108F044A95112F92FC238E8837D8; version="1"; expires=Fri, 31-Dec-2010 20:00:00 GMT; path=/; domain=.apple.com
+      - myacinfo=DAWTKNV2cf703f0f530207ce729529a5af0ef3979d6bb65e106733d44307d52cd310c1527f147061338682e5f0b6c511d3a7488d48593a7e00ff1aca01ed1d825b544e03b83bbc9b858d3dfdfe199e58a2f3175bdb7b9dcd0da9bc72b1b97adffeab119db2a58b19f1602d15fb204bb4494b542973c9545cb8f4c2fb06bc87916b883124cdb516aa21713455be49445f5053152fcb2deb043ee4ab904e87bec3d2a1b6fed2172af19aecf75ca719dc160366b371c7bc1d9f5c2a22dd2ccd1fde2c4aa03069bee556ceb9f795b80bacea0f7ea5ca28f159feede6d6535dca8acd63bd341b01abf9c8b8273c50cb308703db9b296d219ab2d1c5988cf15c0eb14238b203d920f3195ca1fbddae444e285ab1f6bf64cbcd1da9d19e36915b84ae2112fd93c7MVRYV2; version="1"; path=/; domain=.apple.com; secure; HttpOnly
+      content-length: 
+      - "289"
+      nncoection: 
+      - close
+      date: 
+      - Tue, 02 Jul 2013 09:35:38 GMT
+      content-type: 
+      - text/html; charset=iso-8859-1
+    body: 
+      string: |
+        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+        <HTML>
+        	<HEAD>
+        		<META NAME="generator" CONTENT="WebObjects 5">
+        		<TITLE>Apple</TITLE>
+        		<META HTTP-EQUIV="REFRESH" CONTENT="0;URL=https://developer.apple.com/account/selectTeam.action" />
+        	</HEAD>
+        	<BODY BGCOLOR=#FFFFFF>
+        	</BODY>
+        </HTML>
+
+    http_version: "1.1"
+  recorded_at: Tue, 02 Jul 2013 09:35:39 GMT
+- request: 
+    method: get
+    uri: https://developer.apple.com/account/selectTeam.action
+    body: 
+      string: ""
+    headers: 
+      host: 
+      - developer.apple.com
+      accept-language: 
+      - en-us,en;q=0.5
+      connection: 
+      - keep-alive
+      user-agent: 
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22
+      cookie: 
+      - NSC_MCWT_efwfmpqfs_443_BqbdifKbwb=ffffffff12f61da845525d5f4f58455e445a4a4232aa; ds01_a=076e5a5a37eda7805f203ace175cdf601ef35bbedaa31f14a1a32c09526b97a75568eba48135dd4aef48ecfc1d7387e4729209ad7605fb601e488206df27d72ebd9d2fae6127373a899607444c7f78dcf987a7d99f2c3a0e893d8406776cd536GZVX; myacinfo=DAWTKNV2cf703f0f530207ce729529a5af0ef3979d6bb65e106733d44307d52cd310c1527f147061338682e5f0b6c511d3a7488d48593a7e00ff1aca01ed1d825b544e03b83bbc9b858d3dfdfe199e58a2f3175bdb7b9dcd0da9bc72b1b97adffeab119db2a58b19f1602d15fb204bb4494b542973c9545cb8f4c2fb06bc87916b883124cdb516aa21713455be49445f5053152fcb2deb043ee4ab904e87bec3d2a1b6fed2172af19aecf75ca719dc160366b371c7bc1d9f5c2a22dd2ccd1fde2c4aa03069bee556ceb9f795b80bacea0f7ea5ca28f159feede6d6535dca8acd63bd341b01abf9c8b8273c50cb308703db9b296d219ab2d1c5988cf15c0eb14238b203d920f3195ca1fbddae444e285ab1f6bf64cbcd1da9d19e36915b84ae2112fd93c7MVRYV2
+      accept: 
+      - "*/*"
+      accept-charset: 
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      keep-alive: 
+      - 300
+      accept-encoding: 
+      - gzip,deflate,identity
+      if-modified-since: 
+      - Tue, 02 Jul 2013 09:35:33 GMT
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      cache-control: 
+      - no-cache
+      connection: 
+      - Keep-Alive
+      expires: 
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      x-frame-options: 
+      - SAMEORIGIN
+      - SAMEORIGIN
+      transfer-encoding: 
+      - chunked
+      server: 
+      - Apache
+      ms-author-via: 
+      - DAV
+      pragma: 
+      - no-cache
+      keep-alive: 
+      - timeout=15, max=442
+      set-cookie: 
+      - JSESSIONID=13795E3E02F6D1EF78289D0886CC7873.worker4; Path=/
+      date: 
+      - Tue, 02 Jul 2013 09:35:40 GMT
+      content-type: 
+      - text/html;charset=ISO-8859-1
+    body: 
+      string: |-
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+        
+        
+        <html>
+        <head>
+        	<title>Select Team - Apple Developer</title>
+        	
+        
+        
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="pics-label" content='(pics-1.1 "http://www.icra.org/ratingsv02.html" l gen true for "http://www.apple.com" r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true for "http://www.apple.com" r (n 0 s 0 v 0 l 0))'>
+        <meta name="Author" content="Apple Inc.">
+        <meta name="viewport" content="width=1024">
+        <link rel="shortcut icon" href="https://devimages.apple.com.edgekey.net/favicon.ico" />
+        <link rel="icon" href="https://devimages.apple.com.edgekey.net/favicon.ico" />
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="https://devimages.apple.com.edgekey.net/assets/core/styles/base.css" charset="utf-8" />
+        <link rel="stylesheet" type="text/css" media="screen" href="https://devimages.apple.com.edgekey.net/assets/core/styles/adc.css" charset="utf-8" />
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="https://devimages.apple.com.edgekey.net/assets/styles/jqueryui/smoothness-custom-1.8.17/jquery-ui-1.8.17.css" charset="utf-8" />
+        <link rel="stylesheet" type="text/css" media="screen" href="https://devimages.apple.com.edgekey.net/assets/scripts/lib/jqgrid/css/ui.jqgrid.css" charset="utf-8" />
+        <link rel="stylesheet" type="text/css" media="screen" href="https://devimages.apple.com.edgekey.net/assets/styles/grid.css" charset="utf-8" />
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="https://devimages.apple.com.edgekey.net/assets/styles/portal.css" charset="utf-8" />
+        <link rel="stylesheet" type="text/css" media="screen" href="https://developer.apple.com/account/styles/developer_portal.css" charset="utf-8" />
+        
+        <script type="text/javascript" src="https://developer.apple.com/assets/scripts/lib/jquery/jquery-1.7.1.min.js" charset="utf-8" ></script>
+        <script type="text/javascript" src="https://developer.apple.com/assets/scripts/lib/jquery/jquery-ui-custom-1.8.17.min.js" charset="utf-8" ></script>
+        <script type="text/javascript" src="https://developer.apple.com/assets/scripts/lib/jqgrid/js/i18n/grid.locale-en.js" charset="utf-8" ></script>
+        <script type="text/javascript" src="https://developer.apple.com/assets/scripts/lib/jqgrid/js/jquery.jqGrid.src.js" charset="utf-8" ></script>
+        <script type="text/javascript" src="https://developer.apple.com/assets/scripts/search_decorator_jquery.js" charset="utf-8" ></script>
+        <script type="text/javascript" src="https://developer.apple.com/assets/scripts/ac_retina.js" charset="utf-8" ></script>
+        
+        <script type="text/javascript" src="https://developer.apple.com/account/scripts/account-min.js" charset="utf-8" ></script>
+        	
+        	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        	
+        
+        </head>
+        <body id="select-team"  class="developer-portal  class="selectProgram"" >
+        	
+        
+        
+        
+        
+        
+        <div id="globalheader" data-hires="true">
+        	<h1><a href="https://developer.apple.com">Apple Developer</a></h1>
+        	<ul id="gh-nav">
+        		<li id="gh-nav-technologies"><a href="https://developer.apple.com/technologies/">Technologies</a></li>
+        		<li id="gh-nav-resources"><a href="https://developer.apple.com/resources/">Resources</a></li>
+        		<li id="gh-nav-programs"><a href="https://developer.apple.com/programs/">Programs</a></li>
+        		<li id="gh-nav-support"><a href="https://developer.apple.com/support/">Support</a></li>
+        		<li id="gh-nav-membercenter"><a href="https://developer.apple.com/membercenter/">Member Center</a></li>
+        	</ul>
+        	
+        	<div id="gh-search">
+        		<form action="https://developer.apple.com/search/index.php" method="get" accept-charset="utf-8">
+        			<div>
+        				<label for="gh-adcsearch">
+        					<span class="prettyplaceholder">Search Developer</span>
+        					<input type="search" name="q" id="gh-adcsearch" class="adcsearch prettysearch" results="0" placeholder="Search Developer" autosave="">
+        				</label>
+        			</div>
+        		</form>
+        	</div>
+        </div>
+        
+        <div class="loadingMessage" data-hires="true" style=" width:32px; height:32px; display: none;">
+        	<img src="https://devimages.apple.com.edgekey.net/assets/developerportal/images/spinner.gif" /><div>Loading...</div>
+        </div>
+        
+        <div class="errorGenericMessage" style="display: none;">
+        	Please refresh and try again.
+        </div>
+        
+        <div id="main">
+        	<div id="content" class="content" data-hires="true">
+        		<div class="topbar">
+        			<h1>Certificates, Identifiers & Profiles</h1>
+        			<div class="topbar-select-container">
+        				<a class="topbar-select portal-select" id="topbar-select">
+        					<span class="section-title">
+        						
+        							David&nbsp;Lawson
+        						
+        						
+        					</span>
+        				</a>
+        
+        				<div class="tooltip top-pointer" id="topbar-dropdown-tooltip" style="display:none">
+        					<div class="top edge"></div>
+        					<div class="tooltip-content">
+        						<div class="content-wrapper">
+        							<ul class="topbar-dropdown-options">
+        								
+        									<li class="profile"><a href="https://developer.apple.com/membercenter/index.action#accountSummary" class="first-option">View Account</a></li>
+        									
+        									<li class="sign-out"><a href="/account/logout.action;jsessionid=13795E3E02F6D1EF78289D0886CC7873.worker4" class="last-option">Sign Out</a></li>
+        								
+        								
+        							</ul>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+        	
+        		
+        	
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="sidebar" style="display:none;" data-hideSideNav="true">
+        	<div class="top-shadow"></div>
+        
+        	<a class="sidebar-select portal-select" id="sidebar-select"><div class="section-icon mac"></div><div class="section-title"></div><div class="dropdown-arrow"></div></a>
+        	<div class="select-dropdown rounded" style="display: none;">
+        		<ul class="dropdown-options">
+        			<li class="overview-option"><a href="/account/overview.action;jsessionid=13795E3E02F6D1EF78289D0886CC7873.worker4" class="first-option"><span>Overview</span><div class="checkmark"></div></a></li>
+        			
+        			
+        			
+        		</ul>
+        	</div>
+        	
+        	<div class="horizontal-divider"></div>
+        	
+        	
+        
+        	
+        
+        	
+        </div>
+        
+        	<div class="innercontent">
+        		
+        	<div class="teams">
+        		<h2>Select Team</h2>
+        		
+        			<div class="team-selection">
+        				<form id="saveTeamSelection" name="saveTeamSelection" action="/account/saveTeamSelection.action;jsessionid=13795E3E02F6D1EF78289D0886CC7873.worker4" method="post">
+        					<div class="input">
+        						<p class="lead">You're a member of multiple development teams. Select a team to continue.</p>
+        						
+        							<p class="team-value">
+        								<input type="radio" class="radio" name="memberDisplayId" id="teams1" value="MJF74KN5FM">
+        								<label for="teams1" class="label-primary">
+        									Actionpact Limited
+        									</label>
+        										<label for="teams1" class="label-secondary"></label>
+        									
+        								</p>
+        						
+        							<p class="team-value">
+        								<input type="radio" class="radio" name="memberDisplayId" id="teams2" value="YRZAGJ6X9R">
+        								<label for="teams2" class="label-primary">
+        									David Lawson
+        									</label>
+        										<label for="teams2" class="label-secondary">iOS Developer Program</label>
+        									
+        								</p>
+        						
+        					</div>
+        					<div class="sidebarDivider">
+        						<div class="buttoncontainer">
+        							<a href="/account/overview.action;jsessionid=13795E3E02F6D1EF78289D0886CC7873.worker4" class="button large"><span>Cancel</span></a>
+        							<input type="submit" id="saveTeamSelection_saveTeamSelection_save" name="action:saveTeamSelection!save" value="Continue" class="button large blue submit"/>
+        
+        						</div>
+        					</div>
+        				</form>
+        
+        
+        
+        
+        			</div>
+        		
+        		
+        	</div>
+        
+        	</div>
+        
+        	
+        
+        
+        
+        
+        	</div><!-- /content -->
+        </div><!-- /main -->
+        
+        <div id="globalfooter">
+        	<div class="gf-sosumi">
+        		<p>Copyright &copy; 2013 Apple Inc. All rights reserved.</p>
+        		<ul class="piped">
+        			<li><a href="http://www.apple.com/legal/terms/site.html" class="first">Terms of Use</a></li>
+        			<li><a href="http://www.apple.com/privacy/">Privacy Policy</a></li>
+        		</ul>
+        	</div>
+        </div>
+        </body>
+        </html>
+    http_version: "1.1"
+  recorded_at: Tue, 02 Jul 2013 09:35:41 GMT
+recorded_with: VCR 2.5.0
