@@ -7,7 +7,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "omudid"
-  spec.version       = "1.0.6"
+  spec.version       = "1.0.7"
   spec.authors       = ["David Lawson"]
   spec.email         = ["tech.lawson@gmail.com"]
   spec.description   = 'Conveniently add a UDID to the iOS Developer Portal, refresh a provisioning profile and download it. Uploading a new provisioning profile to TestFlight is also supported.'
